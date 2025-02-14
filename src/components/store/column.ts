@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { Column } from "./types";
 import { persist } from "zustand/middleware";
+import { createSelectors } from "./selector";
 
 interface ColumnActions {
   addCol: (col: Column) => void;
@@ -12,7 +13,7 @@ interface ColumnState extends ColumnActions {
   cols: Column[];
 }
 
-export const useColumn = create<ColumnState>()(
+const useColumnBase = create<ColumnState>()(
   persist(
     (set, get) => ({
       cols: [],
@@ -39,3 +40,6 @@ export const useColumn = create<ColumnState>()(
     }
   )
 );
+
+// Recommended by zustand team
+export const useColumn = createSelectors(useColumnBase);

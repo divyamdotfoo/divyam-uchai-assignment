@@ -1,12 +1,13 @@
 import { persist } from "zustand/middleware";
 import { User } from "./types";
 import { create } from "zustand";
+import { createSelectors } from "./selector";
 
 interface UserState {
   users: User[];
 }
 
-export const useUser = create<UserState>()(
+const useUserBase = create<UserState>()(
   persist(
     (set, get) => ({
       users: [
@@ -48,3 +49,5 @@ export const useUser = create<UserState>()(
     }
   )
 );
+
+export const useUser = createSelectors(useUserBase);

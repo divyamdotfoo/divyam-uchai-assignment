@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Comment, Task } from "./types";
+import { createSelectors } from "./selector";
 
 interface TaskActions {
   addTask: (task: Task) => void;
@@ -21,7 +22,7 @@ interface TaskState extends TaskActions, TaskSelectors {
   isLoading: boolean;
 }
 
-export const useTask = create<TaskState>()(
+const useTaskBase = create<TaskState>()(
   persist(
     (set, get) => ({
       tasks: [],
@@ -89,3 +90,7 @@ export const useTask = create<TaskState>()(
     }
   )
 );
+
+// Recommended by the Zustand team
+
+export const useTask = createSelectors(useTaskBase);
