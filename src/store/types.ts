@@ -2,9 +2,8 @@ export type Priority = "high" | "medium" | "low";
 
 export interface Column {
   title: string;
-  color: string;
   id: string;
-  tasks: number;
+  taskIds: string[];
 }
 
 export interface Task {
