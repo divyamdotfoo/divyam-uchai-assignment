@@ -1,3 +1,18 @@
+import { Avatar } from "@/components/avatar";
+import { BoardContainer, BoardHeader } from "@/components/board";
+import { Notifications } from "@/components/notifications";
+import { SearchTender } from "@/components/search-tender";
+
 export default function Page() {
-  return <h1 className=" m-8 text-5xl font-medium">Uchai assignment</h1>;
+  return (
+    <BoardContainer>
+      <BoardHeader title="Tender Tasks">
+        <div className=" flex items-center gap-6">
+          <SearchTender />
+          <Notifications />
+          <Avatar />
+        </div>
+      </BoardHeader>
+    </BoardContainer>
+  );
 }

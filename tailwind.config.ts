@@ -15,6 +15,7 @@ export default {
         card: "var(--card)",
         cardForeground: "var(--card-foreground)",
         cardSecondaryForeground: "var(--card-secondary-foreground)",
+        borderCard: "var(--card-border)",
         inProgress: "var(--in-progress)",
         todo: "var(--todo)",
         completed: "var(--completed)",
