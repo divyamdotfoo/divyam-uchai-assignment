@@ -1,5 +1,6 @@
 import { Avatar } from "@/components/avatar";
 import { BoardContainer, BoardHeader } from "@/components/board";
+import { BoardLayoutActions } from "@/components/board-layout-actions";
 import { Notifications } from "@/components/notifications";
 import { SearchTender } from "@/components/search-tender";
 
@@ -13,6 +14,7 @@ export default function Page() {
           <Avatar />
         </div>
       </BoardHeader>
+      <BoardLayoutActions />
     </BoardContainer>
   );
 }

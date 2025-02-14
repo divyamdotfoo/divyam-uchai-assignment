@@ -18,8 +18,8 @@ export function BoardHeader({
   children: React.ReactNode;
 }) {
   return (
-    <div className=" w-full pb-4 border-b border-borderCard flex items-center justify-between">
-      <h2 className=" text-2xl font-semibold">{title}</h2>
+    <div className=" w-full mb-4 pb-4 border-b border-borderCard flex items-center justify-between">
+      <h2 className=" text-2xl font-bold">{title}</h2>
       {children}
     </div>
   );

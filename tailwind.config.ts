@@ -23,6 +23,16 @@ export default {
         priorityMedium: "var(--priority-medium)",
         priorityHigh: "var(--priority-high)",
       },
+      keyframes: {
+        fadeIn: {
+          to: {
+            opacity: "1",
+          },
+        },
+      },
+      animation: {
+        fadeIn: "fadeIn 0.25s ease-out forwards",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
