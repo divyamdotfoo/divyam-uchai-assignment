@@ -4,6 +4,10 @@ export interface Column {
   title: string;
   id: string;
   taskIds: string[];
+  colors: {
+    text: string;
+    bg: string;
+  };
 }
 
 export interface Task {

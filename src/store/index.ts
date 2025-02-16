@@ -5,10 +5,10 @@
 // In real application we will instantiate our store with props coming from server components.
 
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 import { Column, Comment, Task, User } from "./types";
 import { defaultColumns, defaultTasks, defaultUsers } from "./default";
 import { createSelectors } from "./selector";
+import { persist } from "zustand/middleware";
 
 interface BoardActions {
   // tasks
@@ -16,13 +16,7 @@ interface BoardActions {
   deleteTask: (taskId: string, colId: string) => void;
   editTask: (task: Task) => void;
   addCommentToTask: (taskId: string, comment: Comment) => void;
-  moveTask: ({
-    activeTaskId,
-    overId,
-  }: {
-    activeTaskId: string;
-    overId: string;
-  }) => void;
+  moveTask: (activeTaskId: string, overId: string) => void;
 
   //cols
   addCol: (col: Column) => void;
@@ -108,37 +102,55 @@ const useBoardStoreBase = create<BoardStoreState>()(
           };
         }),
 
-      moveTask: ({ activeTaskId, overId }) =>
+      moveTask: (activeTaskId, overId) =>
         // overId is either the column id (if column is empty) or the taskId(below the activeTask)
         set((prev) => {
           if (activeTaskId === overId) return {};
           const newTasks: BoardStoreState["tasks"] = { ...prev.tasks };
           const newCols: BoardStoreState["columns"] = { ...prev.columns };
 
+          const activeTaskColumnId = newTasks[activeTaskId].columnId;
+
           //   checking the type of overId
-          const isOverAColumn = newCols[overId] === undefined;
+          const isOverAColumn = newCols[overId] !== undefined;
 
           if (isOverAColumn) {
             const taskCount = newCols[overId].taskIds.length;
             if (taskCount === 0) {
-              newTasks[activeTaskId].columnId = overId;
+              // removing the activeTask from its container
+              newCols[activeTaskColumnId].taskIds = newCols[
+                activeTaskColumnId
+              ].taskIds.filter((t) => t !== activeTaskId);
+
+              //   adding the activeTask in to target container
               newCols[overId].taskIds.push(activeTaskId);
+
+              //   changing the colId in the activeTask
+              newTasks[activeTaskId].columnId = overId;
               return { tasks: newTasks, columns: newCols };
             }
+            return {};
           }
-
           // if over is a task item
+
           const overTaskItemColumnId = newTasks[overId].columnId;
+
+          // removing the activeTask from its container
+          newCols[activeTaskColumnId].taskIds = newCols[
+            activeTaskColumnId
+          ].taskIds.filter((t) => t !== activeTaskId);
+
+          //   adding the activeTask in to target container
           const idxOfOverTaskItemInColumn = newCols[
             overTaskItemColumnId
           ].taskIds.findIndex((t) => t === overId);
-
-          newTasks[activeTaskId].columnId = overTaskItemColumnId;
           newCols[overTaskItemColumnId].taskIds.splice(
             idxOfOverTaskItemInColumn,
             0,
             activeTaskId
           );
+          //   changing the colId in the activeTask
+          newTasks[activeTaskId].columnId = overTaskItemColumnId;
 
           return { tasks: newTasks, columns: newCols };
         }),
@@ -184,5 +196,5 @@ const useBoardStoreBase = create<BoardStoreState>()(
   )
 );
 
-// zustand teams recommend this practice
+// zustand team recommends this practice
 export const useBoardStore = createSelectors(useBoardStoreBase);

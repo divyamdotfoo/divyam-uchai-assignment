@@ -1,3 +1,4 @@
+import { generateContainerColor } from "@/lib/utils";
 import { BoardStoreState } from ".";
 
 export const defaultUsers = [
@@ -38,21 +39,25 @@ export const defaultColumns: BoardStoreState["columns"] = {
     id: "todo",
     title: "To Do",
     taskIds: ["task1", "task2", "task3", "task4"],
+    colors: generateContainerColor(),
   },
   "in-progress": {
     id: "in-progress",
     title: "In Progress",
     taskIds: ["task5", "task6", "task7", "task8"],
+    colors: generateContainerColor(),
   },
   review: {
     id: "review",
     title: "Review",
     taskIds: ["task9", "task10", "task11", "task12"],
+    colors: generateContainerColor(),
   },
   done: {
     id: "done",
     title: "Done",
     taskIds: ["task13", "task14", "task15"],
+    colors: generateContainerColor(),
   },
 };
 
