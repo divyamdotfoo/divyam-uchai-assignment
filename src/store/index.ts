@@ -119,19 +119,17 @@ export const useBoardStoreBase = create<BoardStoreState>()(
 
           if (isOverAColumn) {
             const taskCount = newCols[overId].taskIds.length;
-            if (taskCount === 0) {
-              // removing the activeTask from its container
-              newCols[activeTaskColumnId].taskIds = newCols[
-                activeTaskColumnId
-              ].taskIds.filter((t) => t !== activeTaskId);
+            // removing the activeTask from its container
+            newCols[activeTaskColumnId].taskIds = newCols[
+              activeTaskColumnId
+            ].taskIds.filter((t) => t !== activeTaskId);
 
-              //   adding the activeTask in to target container
-              newCols[overId].taskIds.push(activeTaskId);
+            //   adding the activeTask in to target container
+            newCols[overId].taskIds.push(activeTaskId);
 
-              //   changing the colId in the activeTask
-              newTasks[activeTaskId].columnId = overId;
-              return { tasks: newTasks, columns: newCols };
-            }
+            //   changing the colId in the activeTask
+            newTasks[activeTaskId].columnId = overId;
+            return { tasks: newTasks, columns: newCols };
             return {};
           }
           // if over is a task item

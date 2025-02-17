@@ -38,25 +38,25 @@ export const defaultColumns: BoardStoreState["columns"] = {
   todo: {
     id: "todo",
     title: "To Do",
-    taskIds: ["task1", "task2", "task3", "task4"],
+    taskIds: ["task1", "task4"],
     colors: generateContainerColor(),
   },
   "in-progress": {
     id: "in-progress",
     title: "In Progress",
-    taskIds: ["task5", "task6", "task7", "task8"],
+    taskIds: ["task8", "task5", "task7"],
     colors: generateContainerColor(),
   },
   review: {
     id: "review",
     title: "Review",
-    taskIds: ["task9", "task10", "task11", "task12"],
+    taskIds: ["task11", "task12"],
     colors: generateContainerColor(),
   },
   done: {
     id: "done",
     title: "Done",
-    taskIds: ["task13", "task14", "task15"],
+    taskIds: ["task13", "task14"],
     colors: generateContainerColor(),
   },
 };
@@ -96,36 +96,7 @@ export const defaultTasks: BoardStoreState["tasks"] = {
       },
     ],
   },
-  task2: {
-    id: "task2",
-    title: "Design system updates",
-    description: "Update component library with new design tokens",
-    createdAt: new Date().toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "2-digit",
-    }), // today
-    columnId: "todo",
-    priority: "medium",
-    assignee: defaultUsers[1],
-    attachments: [{ type: "image" }],
-    comments: [],
-  },
-  task3: {
-    id: "task3",
-    title: "API documentation",
-    description: "Write comprehensive API documentation",
-    createdAt: new Date(Date.now() - 86400000).toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "2-digit",
-    }),
-    columnId: "todo",
-    priority: "low",
-    assignee: defaultUsers[2],
-    attachments: [],
-    comments: [],
-  },
+
   task4: {
     id: "task4",
     title: "Performance optimization",
@@ -175,21 +146,7 @@ export const defaultTasks: BoardStoreState["tasks"] = {
       },
     ],
   },
-  task6: {
-    id: "task6",
-    title: "Mobile responsiveness",
-    description: "Ensure all pages are mobile-friendly",
-    createdAt: new Date().toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "2-digit",
-    }),
-    columnId: "in-progress",
-    priority: "medium",
-    assignee: defaultUsers[5],
-    attachments: [{ type: "image" }],
-    comments: [],
-  },
+
   task7: {
     id: "task7",
     title: "User testing",
@@ -238,36 +195,6 @@ export const defaultTasks: BoardStoreState["tasks"] = {
         taskId: "task8",
       },
     ],
-  },
-  task9: {
-    id: "task9",
-    title: "Code review",
-    description: "Review pull requests for new features",
-    createdAt: new Date(Date.now() - 86400000).toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "2-digit",
-    }),
-    columnId: "review",
-    priority: "medium",
-    assignee: defaultUsers[2],
-    attachments: [],
-    comments: [],
-  },
-  task10: {
-    id: "task10",
-    title: "Feature testing",
-    description: "Test new feature implementations",
-    createdAt: new Date().toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "2-digit",
-    }),
-    columnId: "review",
-    priority: "high",
-    assignee: defaultUsers[3],
-    attachments: [{ type: "file" }],
-    comments: [],
   },
   task11: {
     id: "task11",
@@ -366,20 +293,5 @@ export const defaultTasks: BoardStoreState["tasks"] = {
         taskId: "task14",
       },
     ],
-  },
-  task15: {
-    id: "task15",
-    title: "Deployment",
-    description: "Deploy version 2.0 to production",
-    createdAt: new Date(Date.now() - 86400000).toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "2-digit",
-    }),
-    columnId: "done",
-    priority: "high",
-    assignee: defaultUsers[2],
-    attachments: [],
-    comments: [],
   },
 };
