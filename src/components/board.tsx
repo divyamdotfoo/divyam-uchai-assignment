@@ -18,6 +18,7 @@ import { useState } from "react";
 import { Column } from "./column";
 import { Task } from "./task";
 import { Plus } from "lucide-react";
+import { TaskView } from "./task-view";
 
 export function Board() {
   const columns = useBoardStore.use.columns();
@@ -48,7 +49,6 @@ export function Board() {
   return (
     <DndContext
       onDragStart={handleDragStart}
-      // onDragMove={handleDragOver}
       onDragEnd={handleDragEnd}
       sensors={sensors}
       collisionDetection={rectIntersection}
@@ -65,6 +65,7 @@ export function Board() {
       </div>
 
       <DragOverlay>{activeId ? <Task taskId={activeId} /> : null}</DragOverlay>
+      <TaskView />
     </DndContext>
   );
 }

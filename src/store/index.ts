@@ -17,6 +17,8 @@ interface BoardActions {
   editTask: (task: Task) => void;
   addCommentToTask: (taskId: string, comment: Comment) => void;
   moveTask: (activeTaskId: string, overId: string) => void;
+  openTaskView: (taskId: string) => void;
+  closeTaskView: () => void;
 
   //cols
   addCol: (col: Column) => void;
@@ -33,9 +35,10 @@ export interface BoardStoreState extends BoardActions, BoardSelectors {
   tasks: Record<string, Task>;
   columns: Record<string, Column>;
   users: User[];
+  taskView: string | null;
 }
 
-const useBoardStoreBase = create<BoardStoreState>()(
+export const useBoardStoreBase = create<BoardStoreState>()(
   persist(
     (set, get) => ({
       // for demonstration purpose
@@ -191,6 +194,12 @@ const useBoardStoreBase = create<BoardStoreState>()(
         }),
 
       getColIdByTaskId: (id) => get().tasks[id].columnId,
+
+      // task view modal
+
+      taskView: null,
+      openTaskView: (id) => set((prev) => ({ taskView: id })),
+      closeTaskView: () => set((prev) => ({ taskView: null })),
     }),
     { version: 1, name: "board-store" }
   )

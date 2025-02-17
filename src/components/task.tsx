@@ -3,18 +3,21 @@ import { CSS } from "@dnd-kit/utilities";
 import { Calendar, MessageSquare, Paperclip } from "lucide-react";
 import Image from "next/image";
 import { Separator } from "./ui/separator";
-import { useBoardStore } from "@/store";
+import { useBoardStore, useBoardStoreBase } from "@/store";
 import { useSortable } from "@dnd-kit/sortable";
 import { motion } from "motion/react";
+
 export function Task({ taskId }: { taskId: string }) {
   const { setNodeRef, listeners, attributes, transform, transition, isOver } =
     useSortable({
       id: taskId,
     });
-  const getTaskById = useBoardStore.use.getTaskById();
-  const task = getTaskById(taskId);
+  // subscribing to the task state
+  const task = useBoardStoreBase((s) => s.getTaskById(taskId));
+  const openTaskView = useBoardStore.use.openTaskView();
   return (
     <motion.div
+      onClick={() => openTaskView(taskId)}
       animate={{
         rotateZ: isOver ? "-5deg" : "0deg",
         boxShadow: isOver
