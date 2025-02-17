@@ -13,12 +13,13 @@ import { Task } from "@/store/types";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import Image from "next/image";
-
+import { motion } from "motion/react";
 export function TaskView() {
   const taskViewId = useBoardStore.use.taskView();
   const closeTaskView = useBoardStore.use.closeTaskView();
   const getTaskById = useBoardStore.use.getTaskById();
   const editTask = useBoardStore.use.editTask();
+  const deleteTask = useBoardStore.use.deleteTask();
   const [editableTask, setEditableTask] = useState<Task | null>(null);
 
   const handleTitleChange = (z: string) =>
@@ -67,7 +68,7 @@ export function TaskView() {
           <div className=" w-full">
             <Label>Task Description</Label>
             <Input
-              autoFocus={false}
+              autoFocus={true}
               placeholder="Task Description"
               value={editableTask.description}
               onChange={(e) => handleDescriptionChange(e.target.value)}
@@ -125,6 +126,18 @@ export function TaskView() {
           ) : (
             <p className=" mx-1">No comments yet</p>
           )}
+
+          <motion.button
+            onClick={() => {
+              closeTaskView();
+              deleteTask(editableTask.id, editableTask.columnId);
+            }}
+            whileHover={{ scale: 1.008 }}
+            whileTap={{ scale: 0.998 }}
+            className=" bg-red-700 rounded-md hover:bg-red-600 transition-all text-white h-10 px-4 py-2"
+          >
+            Delete task
+          </motion.button>
         </div>
       </DialogContent>
     </Dialog>

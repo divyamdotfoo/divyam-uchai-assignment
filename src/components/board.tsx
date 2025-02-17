@@ -14,11 +14,12 @@ import {
 } from "@dnd-kit/core";
 
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Column } from "./column";
 import { Task } from "./task";
 import { Plus } from "lucide-react";
 import { TaskView } from "./task-view";
+import { BoardSkeleton } from "./board-skeleton";
 
 export function Board() {
   const columns = useBoardStore.use.columns();
@@ -46,6 +47,18 @@ export function Board() {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
+
+  // showing loading animation while the data is fetched from the localstorage
+  const [isLoading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, []);
+
+  if (isLoading) {
+    return <BoardSkeleton />;
+  }
   return (
     <DndContext
       onDragStart={handleDragStart}
