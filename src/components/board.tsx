@@ -34,6 +34,7 @@ import { Input } from "./ui/input";
 import { generateContainerColor } from "@/lib/utils";
 import { nanoid } from "nanoid";
 
+// every functionality which concerns the board is handle in the zustand store keeping the UI short and readable.
 export function Board() {
   const columns = useBoardStore.use.columns();
   const moveTask = useBoardStore.use.moveTask();
@@ -62,6 +63,8 @@ export function Board() {
   );
 
   // showing loading animation while the data is fetched from the localstorage
+  // This will replicate the loading animation in production when the data will come from the server.
+  // Doing this with suspense can  make the website load fast since we are not waiting for all the content to be fetched on the server.
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -88,12 +91,17 @@ export function Board() {
         </div>
       </div>
 
+      {/* used to display the task when its dragging */}
       <DragOverlay>{activeId ? <Task taskId={activeId} /> : null}</DragOverlay>
+
+      {/* This is for editing and viewing task details */}
       <TaskView />
     </DndContext>
   );
 }
 
+// We can also give an option to the user to make this column play sounds when the item is dropped in it.
+// We will simply trigger the sound in the handleDragEnd function.
 function AddColumn() {
   const [colName, setColName] = useState("");
   const addCol = useBoardStore.use.addCol();

@@ -12,6 +12,7 @@ export function Task({ taskId }: { taskId: string }) {
     useSortable({
       id: taskId,
     });
+
   // subscribing to the task state
   const task = useBoardStoreBase((s) => s.getTaskById(taskId));
   const openTaskView = useBoardStore.use.openTaskView();

@@ -3,6 +3,7 @@
 import { SlidersVertical } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+// I have tried to create a moving border animation here and this could be improved if the number of buttons are predetermined.
 export function BoardLayoutActions() {
   const [activeTab, setActiveTab] = useState(2);
   const containerRef = useRef<HTMLDivElement | null>(null);

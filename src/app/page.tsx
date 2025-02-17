@@ -13,7 +13,6 @@ export default function Page() {
 
         <div className=" w-full mb-4 pb-4 border-b border-borderCard flex items-center justify-between">
           {/* this title can come from param prop for each page */}
-
           <h2 className=" text-2xl font-bold">Tender Tasks</h2>
           <div className=" flex items-center gap-6">
             {/* client components */}
